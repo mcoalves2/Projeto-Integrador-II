@@ -1,0 +1,38 @@
+/* O video do youtube é: https://www.youtube.com/watch?v=M9DlRWgiGvE
+nele é ensinado o codigo para a leitura de caixas de texto, creio que funcionará bem para o formato que está sendo elaborado no site.
+
+Ocódigo usado no vídeo é:
+---------------------------
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LEITOR DE VOZ</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+
+</head>
+<body>
+
+	<p><textarea id="leitor" cols="50" rows="5" maxlength="160"></textarea></p>
+	<p><button id="falar">Ler texto</button></p>
+
+	<script type="text/javascript">
+		$('#falar').on('click', function(){
+			var texto = $("#leitor").val();
+			responsiveVoice.speak($("#leitor").val(), "Brazilian Portuguese Female");
+		});
+	</script>
+</body>
+</html>
+------------------------------------------------
+
+Se quiser, pode ainda colocar para ler automaticamente ou a pessoa selecionar o texto e a API ler o que ela selecionou. Se quiser fazer testes:
+https://responsivevoice.org/text-to-speech-sdk/
+
+Existem outras opções desse tipo no site da API (https://responsivevoice.org/) na guia API - SDK
+
+Se esse método não der certo, verifiquei em outro vídeo (https://www.youtube.com/watch?v=txCJ6dRDIUc) que talvez peçam uma Key. Acredio que seja só logar no site 
+com a conta do github e pegar o cédogi por ele. Eu não fui mais a fundo porque creio que seja necessário fazer os testes no código primeiro, mas se vc não conseguir,
+me avisa que eu dou mais uma fuçadona aqui
+*/ 
+
