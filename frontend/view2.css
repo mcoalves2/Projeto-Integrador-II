@@ -1,0 +1,39 @@
+body {
+	background: rgb(162,223,237);
+}
+h1 {
+	text-align: center;
+	font-family: "Helvetica", sans-serif;
+	color: black;
+}
+h2 {
+	text-align: center;
+	font-family: "Helvetica", sans-serif;
+	color: black;
+}
+h3 {
+	text-align: center;
+	font-family: "Helvetica", sans-serif;
+	color: black;
+}
+.agenda{
+    position:Absolute;
+    top:30%;
+    left:10%;
+    font-family: "Helvetica", sans-serif;
+    font-size:30px;
+	color: black;
+}
+.tabela{
+    position:Absolute;
+    top:36%;
+    left:10%;
+    border: 1px solid black;
+    width: 80%;
+    height: 300px;
+    text-align: left;
+    padding: 15px;
+    background-color: #FFFFFF;
+    color: white;
+
+}
