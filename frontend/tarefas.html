@@ -64,56 +64,32 @@
     </div>
 
     <div class="container my-5">
-		<div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-		  <h2 class="pb-2 border-bottom">Cadastro de Tarefa</h2>
-		  <form>
-			<br/>
-			<br/>
-			<div class="mb-3">
-			  <label for="tarefa" class="form-label">Título da Tarefa</label>
-  			  <input type="text" class="form-control" id="tarefa" placeholder="Ex:Manutenção Iluminação">
-			</div>
-			<div class="mb-3">
-			  <label for="descricao" class="form-label">Descrição da Tarefa</label>
-  			  <textarea class="form-control" id="descricao" rows="3"></textarea>
-			</div>
-			<div class="row">
-				<div class="col mb-3">
-					<label for="dt_inicio" class="form-label">Data de Início</label>
-					<input type="date" class="form-control" id="dt_inicio" >
-				</div>
-				<div class="col mb-3">
-					<label for="hora_inicio" class="form-label">Hora de Início</label>
-					<input type="time" class="form-control" id="hora_inicio" >
-				</div>
-			</div>
-  
-			<div class="row">
-				<div class="col mb-3">
-					<label for="dt_fim" class="form-label">Data da Finalização</label>
-					<input type="date" class="form-control" id="dt_fim" >
-				</div>
-				<div class="col mb-3">
-					<label for="hora_fim" class="form-label">Hora da Finalização</label>
-					<input type="time" class="form-control" id="hora_fim" >
-				</div>
-			</div>
-			<div class="mb-3">
-				<label for="responsavel" class="form-label">Responsável</label>
-				<input type="text" class="form-control" id="responsavel" placeholder="Nome do responsável">
-			</div>
-			<br/>
-			<div class="mx-auto" style="width: 200px;">
-				<input type="submit" class="btn btn-outline-success" style="margin-right: 20px;"value="Salvar">
-				<input type="reset" class="btn btn-outline-danger" value="Limpar">
-			</div>
-			<br/>
-			<br/>
-			<br/>	
-		</form>
-			
+		<div class="row p-3 pb-3 pe-lg-3 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+		  <h2 class="pb-2 border-bottom">Tarefas </h2>
+          <br />
+          <br />
+          <br />
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Título</th>
+                <th scope="col">Data/Hora Início</th>
+                <th scope="col">Data/Hora Fim</th>
+                <th scope="col">Responsável</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+            </tbody>
+          </table>			
+
 		</div>
-	</div>
+    </div>
 	<div class="container mx-auto align-items-center">
 		<h2 class="pb-2 border-bottom text-center">Cond. OS</h2>
 		<h4 class="text-center">O seu organizador de tarefas para condomínios!</h4>
