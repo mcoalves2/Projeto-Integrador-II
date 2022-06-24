@@ -9,6 +9,12 @@ parse application/json
 --------------------------------------------
 --------------------------------------------*/
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 /*------------------------------------------
 --------------------------------------------
@@ -16,9 +22,9 @@ Database Connection
 --------------------------------------------
 --------------------------------------------*/
 const conn = mysql.createConnection({
-  host: 'localhost',
+  host: '127.0.0.1',
   user: 'root', /* MySQL User */
-  password: 'Jaguatirica1409', /* MySQL Password */
+  password: '1234', /* MySQL Password */
   database: 'pi2' /* MySQL Database */
 });
 
@@ -42,7 +48,8 @@ app.get('/api/tarefas',(req, res) => {
 
   let query = conn.query(sqlQuery, (err, results) => {
     if(err) throw err;
-    res.send(apiResponse(results));
+    res.send(results);
+    
   });
 });
 
@@ -74,7 +81,7 @@ app.post('/api/tarefas',(req, res) => {
 
   let query = conn.query(sqlQuery, data,(err, results) => {
     if(err) throw err;
-    res.send(apiResponse(results));
+    res.send(apiResponse(results)); 
   });
 });
 
