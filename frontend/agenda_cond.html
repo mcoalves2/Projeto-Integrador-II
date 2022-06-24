@@ -47,19 +47,14 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Descrição</th>
-                <th scope="col">Data/Hora Início</th>
-                <th scope="col">Data/Hora Fim</th>
-                <th scope="col">Responsável</th>
+                <th>Descrição</th>
+                <th>Data/Hora Início</th>
+                <th>Data/Hora Fim</th>
+                <th>Responsável</th>
               </tr>
             </thead>
-            <tbody class="table-group-divider">
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
+            <tbody class="table-group-divider" id="tarefas">
+              
             </tbody>
           </table>			
 
@@ -70,4 +65,33 @@
 		<h4 class="text-center">O seu organizador de tarefas para condomínios!</h4>
 	</div>
 </body>
+
+<script>
+
+	getData();
+  
+	async function getData(){
+		 const response= await fetch("http://localhost:3000/api/tarefas");
+		 //console.log(response);
+		 const data= await response.json();
+		 console.log(data);
+		 length=data.length;
+		 console.log(length);
+		 var temp="";
+		 for(i=0;i<length;i++)
+		 {
+			dtinicio = new Date(data[i].dt_inicio);
+			dtfim = new Date(data[i].dt_fim);
+			temp+="<tr>";
+			temp+="<td>"+data[i].descricao+"</td>";
+			temp+="<td>"+dtinicio.toLocaleDateString() + " - "+ data[i].hora_inicio+"</td>";
+			temp+="<td>"+dtfim.toLocaleDateString() + " - "+ data[i].hora_fim+"</td>";
+			temp+="<td>"+data[i].responsavel+"</td>";
+			temp+="</tr>";
+		 }
+  
+	  document.getElementById("tarefas").innerHTML=temp;
+	   }
+  
+  </script>
 </html>

@@ -7,6 +7,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/d1e6d2d7ee.js" crossorigin="anonymous"></script>
+	<script scr="./api.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="container my-3 sticky-top">
@@ -66,12 +67,12 @@
     <div class="container my-5">
 		<div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
 		  <h2 class="pb-2 border-bottom">Cadastro de Tarefa</h2>
-		  <form>
+		  <form id="form">
 			<br/>
 			<br/>
 			<div class="mb-3">
 			  <label for="tarefa" class="form-label">Título da Tarefa</label>
-  			  <input type="text" name="titulo" class="form-control" id="tarefa" placeholder="Ex:Manutenção Iluminação">
+  			  <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Ex:Manutenção Iluminação">
 			</div>
 			<div class="mb-3">
 			  <label for="descricao" class="form-label">Descrição da Tarefa</label>
@@ -119,4 +120,40 @@
 		<h4 class="text-center">O seu organizador de tarefas para condomínios!</h4>
 	</div>
 </body>
+<script>
+var form=document.getElementById('form')
+
+form.addEventListener('submit', function(e){
+ e.preventDefault()
+
+ var titulo=document.getElementById('titulo').value
+ var descricao=document.getElementById('descricao').value
+ var dt_inicio=document.getElementById('dt_inicio').value
+ var dt_fim=document.getElementById('dt_fim').value
+ var hora_inicio=document.getElementById('hora_inicio').value
+ var hora_fim=document.getElementById('hora_fim').value
+ var responsavel=document.getElementById('responsavel').value
+
+ fetch('http://localhost:3000/api/tarefas', {
+  method: 'POST',
+  body: JSON.stringify({
+    titulo: titulo,
+    descricao: descricao,
+	dt_inicio: dt_inicio,
+	dt_fim: dt_fim,
+	hora_inicio: hora_inicio,
+	hora_fim: hora_fim,
+	responsavel: responsavel,
+  }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  }
+  })
+  .then(function(response){ 
+  return response.json()})
+  .then(function(data)
+  {console.log(data)  
+}).catch(error => console.error('Error:', error)); 
+});
+</script>
 </html>
