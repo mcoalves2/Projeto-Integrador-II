@@ -64,95 +64,59 @@
     </div>
 
     <div class="container my-5">
-		<div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-		  <h2 class="pb-2 border-bottom">Cadastro de Tarefa</h2>
-		  <form id="form">
-			<br/>
-			<br/>
-			<div class="mb-3">
-			  <label for="tarefa" class="form-label">Título da Tarefa</label>
-  			  <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Ex:Manutenção Iluminação">
-			</div>
-			<div class="mb-3">
-			  <label for="descricao" class="form-label">Descrição da Tarefa</label>
-  			  <textarea class="form-control" name="descricao" id="descricao" rows="3"></textarea>
-			</div>
-			<div class="row">
-				<div class="col mb-3">
-					<label for="dt_inicio" class="form-label">Data de Início</label>
-					<input type="date" name="dt_inicio" class="form-control" id="dt_inicio" >
-				</div>
-				<div class="col mb-3">
-					<label for="hora_inicio" class="form-label">Hora de Início</label>
-					<input type="time" name="hora_inicio" class="form-control" id="hora_inicio" >
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col mb-3">
-					<label for="dt_fim" class="form-label">Data da Finalização</label>
-					<input type="date" name="dt_fim" class="form-control" id="dt_fim" >
-				</div>
-				<div class="col mb-3">
-					<label for="hora_fim" class="form-label">Hora da Finalização</label>
-					<input type="time" name="hora_fim" class="form-control" id="hora_fim" >
-				</div>
-			</div>
-			<div class="mb-3">
-				<label for="responsavel" class="form-label">Responsável</label>
-				<input type="text" name="responsavel" class="form-control" id="responsavel" placeholder="Nome do responsável">
-			</div>
-			<br/>
-			<div class="mx-auto" style="width: 200px;">
-				<input type="submit" class="btn btn-outline-success" style="margin-right: 20px;"value="Salvar">
-				<input type="reset" class="btn btn-outline-danger" value="Limpar">
-			</div>
-			<br/>
-			<br/>
-			<br/>	
-		  </form>
+		<div class="row p-3 pb-3 pe-lg-3 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+		  <h2 class="pb-2 border-bottom">Visualização da Agenda</h2>
+          <br />
+          <br />
+          <br />
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Descrição</th>
+                <th>Data/Hora Início</th>
+                <th>Data/Hora Fim</th>
+                <th>Responsável</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider" id="tarefas">
+              
+            </tbody>
+          </table>			
 
 		</div>
-	</div>
+    </div>
 	<div class="container mx-auto align-items-center">
 		<h2 class="pb-2 border-bottom text-center">Cond. OS</h2>
 		<h4 class="text-center">O seu organizador de tarefas para condomínios!</h4>
 	</div>
 </body>
+
 <script>
-var form=document.getElementById('form')
 
-form.addEventListener('submit', function(e){
- e.preventDefault()
-
- var titulo=document.getElementById('titulo').value
- var descricao=document.getElementById('descricao').value
- var dt_inicio=document.getElementById('dt_inicio').value
- var dt_fim=document.getElementById('dt_fim').value
- var hora_inicio=document.getElementById('hora_inicio').value
- var hora_fim=document.getElementById('hora_fim').value
- var responsavel=document.getElementById('responsavel').value
-
- fetch('http://localhost:3000/api/tarefas', {
-  method: 'POST',
-  body: JSON.stringify({
-    titulo: titulo,
-    descricao: descricao,
-	dt_inicio: dt_inicio,
-	dt_fim: dt_fim,
-	hora_inicio: hora_inicio,
-	hora_fim: hora_fim,
-	responsavel: responsavel,
-  }),
-  headers: {
-    'Content-type': 'application/json; charset=UTF-8',
-  }
-  })
-  .then(function(response){ 
-  return response.json()})
-  .then(function(data)
-  {console.log(data)  
-}).catch(error => console.error('Error:', error)); 
-});
-</script>
+	getData();
+  
+	async function getData(){
+		 const response= await fetch("http://localhost:3000/api/tarefas");
+		 //console.log(response);
+		 const data= await response.json();
+		 console.log(data);
+		 length=data.length;
+		 console.log(length);
+		 var temp="";
+		 for(i=0;i<length;i++)
+		 {
+			dtinicio = new Date(data[i].dt_inicio);
+			dtfim = new Date(data[i].dt_fim);
+			temp+="<tr>";
+			temp+="<td>"+data[i].descricao+"</td>";
+			temp+="<td>"+dtinicio.toLocaleDateString() + " - "+ data[i].hora_inicio+"</td>";
+			temp+="<td>"+dtfim.toLocaleDateString() + " - "+ data[i].hora_fim+"</td>";
+			temp+="<td>"+data[i].responsavel+"</td>";
+			temp+="</tr>";
+		 }
+  
+	  document.getElementById("tarefas").innerHTML=temp;
+	   }
+  
+  </script>
 </html>
