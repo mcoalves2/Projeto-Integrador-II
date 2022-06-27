@@ -70,7 +70,7 @@
           <br />
           <br />
           <br />
-          <table class="table table-hover">
+          <table class="table table-hover" id="tabela">
             <thead>
               <tr>
                 <th style="width: 350px;">Descrição</th>
@@ -116,7 +116,7 @@
   			    </form>
 			</div>
 			<div class="modal-footer">
-				<input type="submit" class="btn btn-outline-danger" style="margin-right: 20px;"value="Excluir">
+				<input type="button" onclick="delData()" class="btn btn-outline-danger" style="margin-right: 20px;"value="Excluir">
 				<input type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"value="Fechar">
 			</div>
 		</div>
@@ -137,22 +137,22 @@
 					<div class="row">
 						<div class="col mb-3">
 							<label for="dt_inicio" class="form-label">Data de Início</label>
-							<input type="date" name="dt_inicio" class="form-control" id="dt_inicio" >
+							<input type="date" name="dt_inicio" class="form-control" id="update-dt_inicio" >
 						</div>
 						<div class="col mb-3">
 							<label for="hora_inicio" class="form-label">Hora de Início</label>
-							<input type="time" name="hora_inicio" class="form-control" id="hora_inicio" >
+							<input type="time" name="hora_inicio" class="form-control" id="update-hora_inicio" >
 						</div>
 					</div>
 		
 					<div class="row">
 						<div class="col mb-3">
 							<label for="dt_fim" class="form-label">Data da Finalização</label>
-							<input type="date" name="dt_fim" class="form-control" id="dt_fim" >
+							<input type="date" name="dt_fim" class="form-control" id="update-dt_fim" >
 						</div>
 						<div class="col mb-3">
 							<label for="hora_fim" class="form-label">Hora da Finalização</label>
-							<input type="time" name="hora_fim" class="form-control" id="hora_fim" >
+							<input type="time" name="hora_fim" class="form-control" id="update-hora_fim" >
 						</div>
 					</div>
 					<div class="mb-3">
@@ -162,8 +162,9 @@
   			    </form>
 			</div>
 			<div class="modal-footer">
-				<input type="submit" class="btn btn-outline-success" style="margin-right: 20px;"value="Alterar">
+				<input type="button" onclick="updateData()" class="btn btn-outline-success" style="margin-right: 20px;"value="Alterar">
 				<input type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"value="Fechar">
+				<input type="hidden" id="update-id">
 			</div>
 		</div>
 		</div>
@@ -187,6 +188,7 @@
 		 var temp="";
 		 for(i=0;i<length;i++)
 		 {
+			titulo = 'titulo-'+data[i].id;
 			dtinicio = new Date(data[i].dt_inicio);
 			dtfim = new Date(data[i].dt_fim);
 			desc = 'desc-'+ data[i].id;
@@ -202,12 +204,14 @@
 			temp+="<td id='"+resp+"'>"+data[i].responsavel+"</td>";
 			temp+="<td style='text-align:center;'><input type='button' class='btn btn-outline-primary' value='Alterar' onclick='"+update+"' data-bs-toggle='modal' data-bs-target='#updateModal'></td>";
 			temp+="<td style='text-align:center;'><input type='button' class='btn btn-outline-danger' value='Excluir' onclick='"+del+"' data-bs-toggle='modal' data-bs-target='#delModal'></td>";
+			temp+="<input type='hidden' id='"+titulo+"' value='"+data[i].titulo+"'>";
 			temp+="</tr>";
 		 }
   
 	  document.getElementById("tarefas").innerHTML=temp;
 	   }
     async function delModal(id){
+		document.getElementById('update-id').value=id;
 		desc = document.getElementById("desc-"+id).innerText;
 		hi = document.getElementById("hi-"+id).innerText;
 		hf = document.getElementById("hf-"+id).innerText;
@@ -218,11 +222,73 @@
 		document.getElementById("del-responsavel").value = resp;
 	};
 	async function updateModal(id){
+		document.getElementById('update-id').value=id;
 		desc = document.getElementById("desc-"+id).innerText;
 		resp = document.getElementById("resp-"+id).innerText;
 		document.getElementById("update-descricao").value = desc;
 		document.getElementById("update-responsavel").value = resp;
-
 	};
-  </script>
+	async function updateData(){
+		var id=document.getElementById('update-id').value;
+		var tit = document.getElementById('titulo-'+id).value;
+		var descricao=document.getElementById('update-descricao').value;
+		var dt_inicio=document.getElementById('update-dt_inicio').value;
+		var dt_fim=document.getElementById('update-dt_fim').value;
+		var hora_inicio=document.getElementById('update-hora_inicio').value;
+		var hora_fim=document.getElementById('update-hora_fim').value;
+		var responsavel=document.getElementById('update-responsavel').value;
+
+		fetch('http://localhost:3000/api/tarefas/'+id, {
+		method: 'PUT',
+		mode: 'cors',
+		body: JSON.stringify({
+			"titulo": tit,
+			"descricao": descricao,
+			"dt_inicio": dt_inicio,
+			"dt_fim": dt_fim,
+			"hora_inicio": hora_inicio,
+			"hora_fim": hora_fim,
+			"responsavel": responsavel
+		}),
+		headers: {
+			'Content-type': 'application/json; charset=UTF-8',
+		}
+		})
+		.then(function(response){ 
+		return response.json()})
+		.then(function(data)
+		{console.log(data)  
+		}).catch(error => console.error('Error:', error)); 
+		
+		var myTable = document.getElementById("tabela");
+		var rowCount = myTable.rows.length;
+		for (var x=rowCount-1; x>0; x--) {
+   			myTable.deleteRow(x);
+		}
+		getData();
+	}
+	async function delData(){
+		var id=document.getElementById('update-id').value;
+		fetch('http://localhost:3000/api/tarefas/'+id, {
+		method: 'DELETE',
+		headers: {
+			'Content-type': 'application/json; charset=UTF-8',
+		}
+		})
+		.then(function(response){ 
+		return response.json()})
+		.then(function(data)
+		{console.log(data)  
+		}).catch(error => console.error('Error:', error)); 
+		
+		var myTable = document.getElementById("tabela");
+		var rowCount = myTable.rows.length;
+		for (var x=rowCount-1; x>0; x--) {
+   			myTable.deleteRow(x);
+		}
+		getData();
+	}
+
+
+</script>
 </html>
