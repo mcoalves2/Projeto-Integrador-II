@@ -22,4 +22,4 @@
     }).then(res => res.json()).then(res => console.log(res))
     
   }
-
+// versão final
