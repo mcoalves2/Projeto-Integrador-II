@@ -81,13 +81,13 @@
               </tr>
             </thead>
             <tbody class="table-group-divider" id="tarefas">
-              
+
             </tbody>
-          </table>			
+          </table>
 
 		</div>
     </div>
-  
+
 	<!-- Modal -->
 	<div class="modal fade" id="delModal" tabindex="-1" aria-labelledby="delModal" aria-hidden="true">
 		<div class="modal-dialog">
@@ -144,7 +144,7 @@
 							<input type="time" name="hora_inicio" class="form-control" id="update-hora_inicio" >
 						</div>
 					</div>
-		
+
 					<div class="row">
 						<div class="col mb-3">
 							<label for="dt_fim" class="form-label">Data da Finalização</label>
@@ -169,17 +169,17 @@
 		</div>
 		</div>
 	</div>
-  
+
 	<div class="container mx-auto align-items-center">
-		<h2 class="pb-2 border-bottom text-center">Cond. OS</h2>
-		<h4 class="text-center">O seu organizador de tarefas para condomínios!</h4>
+		<h3 class="text-center">O seu organizador de tarefas para condomínios!</h3>
+		<h4 class="text-center"><font color=#000080>Condomínio Villa D'Italia</font></h4>
 	</div>
 </body>
 
 <script>
 
 	getData();
-  
+
 	async function getData(){
 		 const response= await fetch("http://localhost:3000/api/tarefas");
 		 //console.log(response);
@@ -207,7 +207,7 @@
 			temp+="<input type='hidden' id='"+titulo+"' value='"+data[i].titulo+"'>";
 			temp+="</tr>";
 		 }
-  
+
 	  document.getElementById("tarefas").innerHTML=temp;
 	   }
     async function delModal(id){
@@ -254,12 +254,12 @@
 			'Content-type': 'application/json; charset=UTF-8',
 		}
 		})
-		.then(function(response){ 
+		.then(function(response){
 		return response.json()})
 		.then(function(data)
-		{console.log(data)  
-		}).catch(error => console.error('Error:', error)); 
-		
+		{console.log(data)
+		}).catch(error => console.error('Error:', error));
+
 		var myTable = document.getElementById("tabela");
 		var rowCount = myTable.rows.length;
 		for (var x=rowCount-1; x>0; x--) {
@@ -275,12 +275,12 @@
 			'Content-type': 'application/json; charset=UTF-8',
 		}
 		})
-		.then(function(response){ 
+		.then(function(response){
 		return response.json()})
 		.then(function(data)
-		{console.log(data)  
-		}).catch(error => console.error('Error:', error)); 
-		
+		{console.log(data)
+		}).catch(error => console.error('Error:', error));
+
 		var myTable = document.getElementById("tabela");
 		var rowCount = myTable.rows.length;
 		for (var x=rowCount-1; x>0; x--) {

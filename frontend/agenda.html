@@ -79,22 +79,23 @@
               </tr>
             </thead>
             <tbody class="table-group-divider" id="tarefas">
-              
+
             </tbody>
-          </table>			
+          </table>
 
 		</div>
     </div>
 	<div class="container mx-auto align-items-center">
 		<h2 class="pb-2 border-bottom text-center">Cond. OS</h2>
-		<h4 class="text-center">O seu organizador de tarefas para condomínios!</h4>
+		<h3 class="text-center">O seu organizador de tarefas para condomínios!</h3>
+		<h4 class="text-center"><font color=#000080>Condomínio Villa D'Italia</font></h4>
 	</div>
 </body>
 
 <script>
 
 	getData();
-  
+
 	async function getData(){
 		 const response= await fetch("http://localhost:3000/api/tarefas");
 		 //console.log(response);
@@ -114,9 +115,9 @@
 			temp+="<td>"+data[i].responsavel+"</td>";
 			temp+="</tr>";
 		 }
-  
+
 	  document.getElementById("tarefas").innerHTML=temp;
 	   }
-  
+
   </script>
 </html>
